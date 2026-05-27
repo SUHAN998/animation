@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MINI GT CO. | Premium Sequential Reveal</title>
+    <!-- Google Fonts & FontAwesome -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@700;900&family=Rajdhani:wght@500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <!-- CSS Link -->
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <!-- 1. INTRO SPLASH SCREEN -->
+    <div id="intro-overlay">
+        <!-- 파편 조각들이 생성될 컨테이너 -->
+        <div id="particle-container"></div>
+        
+        <!-- 중앙 로고 (SVG Masking 효과의 뼈대) -->
+        <div id="logo-portal-wrapper">
+            <svg id="logo-svg" viewBox="0 0 1000 300">
+                <defs>
+                    <!-- 텍스트 모양대로 배경을 뚫어버릴 마스크 정의 -->
+                    <mask id="logo-mask">
+                        <!-- 기본은 흰색(다 보여줌) -->
+                        <rect width="1000" height="300" fill="white" />
+                        <!-- 글자 부분은 검은색(글자 영역만 뚫어버림) -->
+                        <text x="50%" y="60%" text-anchor="middle" font-family="'Orbitron', sans-serif" font-weight="900" font-size="110" fill="black" letter-spacing="15">MINI GT x LBWK</text>
+                    </mask>
+                </defs>
+                <!-- 마스크를 적용받아 글자만 투명하게 뚫리는 실제 검은색 면판 -->
+                <rect width="1000" height="300" fill="#000000" mask="url(#logo-mask)" />
+            </svg>
+            <!-- 파편들이 다 모인 후 글자 형태를 흉내 낼 가짜 흰색 텍스트 레이어 (마스크 전환 직전에 페이드아웃) -->
+            <div id="fake-logo-text">MINI GT</div>
+        </div>
+    </div>
+
+    <!-- 2. MAIN LANDING PAGE CONTENT -->
+    <main id="main-content">
+        <!-- 헤더 영역 -->
+        <header>
+            <div class="header-inner">
+                <div class="nav-logo">
+                    <img class="reveal-el" src="img/MINI GT Logo_w.png" alt="MINI GT Logo">
+                </div>
+                <nav>
+                    <a href="#">COLLECTION</a>
+                    <a href="#">SPECIFICATIONS</a>
+                    <a href="#">COMMUNITY</a>
+                </nav>
+            </div>
+        </header>
+
+        <!-- 메인 영웅 제품 홍보 구역 (2개 제품) -->
+        <section class="showroom">
+            <div class="section-title-box">
+                <span class="reveal-el subtitle-tag">PREMIUM 1:64 SCALE</span>
+                <h2 class="reveal-el section-main-title">LBWK COLLAB MODELS</h2>
+            </div>
+
+            <!-- 제품 1: 닛산 스카이라인 R34 리버티워크 -->
+            <div class="product-card" id="prod-r34">
+                <div class="product-info">
+                    <span class="reveal-el prod-brand">MINI GT x LBWK</span>
+                    <h3 class="reveal-el prod-name">Nissan LB-ER34 Super Silhouette SKYLINE</h3>
+                    <p class="reveal-el prod-desc">
+                        80년대 전설적인 그룹 5 실루엣 레이서 레이블을 현대적으로 오마주한 리버티 워크(Liberty Walk)의 마스터피스. 
+                        낮게 깔린 스텐스와 공격적인 LBWK 와이드 바디킷의 역동성을 1:64 스케일에 맞춰 정교하게 축소 시켰습니다.
+                    </p>
+                    <div class="reveal-el specs-list">
+                        <div class="spec-tag"><i class="fa-solid fa-car"></i> Full Diecast Chassis</div>
+                        <div class="spec-tag"><i class="fa-solid fa-circle"></i> Smooth Rolling Rubber Tires</div>
+                        <div class="spec-tag"><i class="fa-solid fa-gears"></i> Perfect Stance & Proportion</div>
+                    </div>
+                    <!-- 클릭 시 구매 링크 이동 시뮬레이션 -->
+                    <a href="https://minigt.tsm-models.com/index.php?action=product-detail&id=1678#d7218" target="_blank" class="reveal-el cta-btn">
+                        <span>SECURE MODEL</span> <i class="fa-solid fa-arrow-right"></i>
+                    </a>
+                </div>
+                <div class="product-visual">
+                    <div class="reveal-el glass-bg"></div>
+                    <!-- 순차 애니메이션용 파츠 레이어들 -->
+                    <img class="reveal-el part-layer part-shadow" src="http://googleusercontent.com/image_collection/image_retrieval/1778558611203734253" alt="Shadow" style="opacity: 0.2; filter: brightness(0) blur(5px);">
+                    <img class="reveal-el part-layer part-body" src="img/LBWK_R34_1.png" alt="Skyline R34 Mini GT">
+                </div>
+            </div>
+
+            <!-- 제품 2: 람보르기니 쿤타치 리버티워크 -->
+            <div class="product-card reverse" id="prod-countach">
+                <div class="product-info">
+                    <span class="reveal-el prod-brand">MINI GT x LBWK</span>
+                    <h3 class="reveal-el prod-name">Lamborghini Countach LB-WORKS</h3>
+                    <p class="reveal-el prod-desc">
+                        람보르기니의 헤리티지이자 80년대를 풍미했던 쿤타치를 JDM 스타일의 파격적인 볼트온 오버펜더 스타일로 재해석한 커스텀 모델입니다. 
+                        로우 앤 와이드(Low & Wide) 스탠스로 모던함과 클래식을 잡았으며, 독보적인 블랙 바디와 화이트 리버리, 골드 딥디쉬 휠의 조합으로 고급감을 더했습니다.
+                    </p>
+                    <div class="reveal-el specs-list">
+                        <div class="spec-tag"><i class="fa-solid fa-eye"></i> Separate Clear Parts (Headlight)</div>
+                        <div class="spec-tag"><i class="fa-solid fa-arrows-down-to-line"></i> Low Stance</div>
+                        <div class="spec-tag"><i class="fa-solid fa-box"></i> Gloss Black Paint Finish</div>
+                    </div>
+                    <a href="https://minigt.tsm-models.com/index.php?action=product-detail&id=2007#d8594" target="_blank" class="reveal-el cta-btn variant">
+                        <span>ADD TO COLLECTION</span> <i class="fa-solid fa-plus"></i>
+                    </a>
+                </div>
+                <div class="product-visual">
+                    <div class="reveal-el glass-bg"></div>
+                    <img class="reveal-el part-layer part-shadow" src="http://googleusercontent.com/image_collection/image_retrieval/5484884716992048349" alt="Shadow" style="opacity: 0.2; filter: brightness(0) blur(5px);">
+                    <img class="reveal-el part-layer part-body" src="img/LBWK_Countach_1.png" alt="Lamborghini Countach LB-Works">
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- 스크립트 파일 연결 -->
+    <script src="script.js"></script>
+</body>
+</html>

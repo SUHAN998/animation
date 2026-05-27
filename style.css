@@ -1,0 +1,437 @@
+/* ==========================================
+    1. CORE STYLE & RESET
+   ========================================== */
+*, *::before, *::after {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    background-color: #000000;
+    color: #ffffff;
+    font-family: 'Rajdhani', sans-serif;
+    overflow-x: hidden;
+    /* 인트로 진행되는 동안 메인 스크롤 방지 */
+    overflow-y: hidden; 
+}
+
+/* ==========================================
+    2. INTRO ANIMATION SCREEN (SPLASH)
+   ========================================== */
+#intro-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background-color: #000000;
+    z-index: 9999;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    pointer-events: none; /* 클릭 방해 금지 */
+    transition: opacity 1s cubic-bezier(0.85, 0, 0.15, 1);
+}
+
+/* 파편 조각 스타일에 사용할 컨테이너 */
+#particle-container {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    overflow: hidden;
+}
+
+/* 동적으로 날아올 하얀색 파편 입자 */
+.white-fragment {
+    position: absolute;
+    background-color: rgba(255, 255, 255, 0.85);
+    transform: skewX(-20deg);
+    opacity: 0;
+}
+
+/* 로고와 포탈을 감싸는 박스 */
+#logo-portal-wrapper {
+    position: relative;
+    width: 1000px;
+    height: 300px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transform: scale(1);
+    transition: transform 1.2s cubic-bezier(0.85, 0, 0.15, 1);
+}
+
+/* 실제 마스킹용 SVG */
+#logo-svg {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    opacity: 0; /* 처음엔 숨김 -> 파편 모인 뒤 켜짐 */
+    z-index: 2;
+}
+
+/* 파편이 쌓여 완성되는 것처럼 보일 진짜 텍스트 레이어 */
+#fake-logo-text {
+    font-family: 'Orbitron', sans-serif;
+    font-weight: 900;
+    font-size: 110px;
+    letter-spacing: 15px;
+    color: #ffffff;
+    text-shadow: 0 0 30px rgba(255, 255, 255, 0.6);
+    opacity: 0;
+    z-index: 1;
+    transform: scale(0.95);
+}
+
+/* 애니메이션 제어용 클래스 */
+#logo-portal-wrapper.zoom-active {
+    transform: scale(25); /* 엄청난 크기로 다가와 터널 효과 생성 */
+}
+
+/* ==========================================
+    3. MAIN LANDING PAGE CONTENT
+   ========================================== */
+#main-content {
+    opacity: 0; /* 인트로 전엔 숨김 */
+    transition: opacity 1.5s ease-out;
+    width: 100%;
+    min-height: 100vh;
+    background: radial-gradient(circle at 50% 30%, #111111 0%, #000000 70%);
+}
+
+#main-content.visible {
+    opacity: 1;
+}
+
+/* 헤더 */
+header {
+    width: 100%;
+    padding: 30px 60px;
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 100;
+}
+
+.header-inner {
+    max-width: 1400px;
+    margin: 0 auto;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.nav-logo {
+    font-family: 'Orbitron', sans-serif;
+    font-size: 24px;
+    font-weight: 700;
+    letter-spacing: 3px;
+    color: #00A3FF;
+}
+
+nav a {
+    color: #888888;
+    text-decoration: none;
+    margin-left: 40px;
+    font-weight: 500;
+    font-size: 16px;
+    letter-spacing: 2px;
+    transition: color 0.3s;
+}
+
+nav a:hover {
+    color: #ffffff;
+}
+
+/* 쇼룸 레이아웃 */
+.showroom {
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 150px 40px 100px 40px;
+}
+
+.section-title-box {
+    text-align: center;
+    margin-bottom: 80px;
+}
+
+.subtitle-tag {
+    color: #00A3FF;
+    font-size: 18px;
+    letter-spacing: 6px;
+    display: block;
+    margin-bottom: 10px;
+}
+
+.section-main-title {
+    font-family: 'Orbitron', sans-serif;
+    font-size: 44px;
+    letter-spacing: 4px;
+}
+
+/* 제품 카드 구조 */
+.product-card {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 150px;
+    gap: 80px;
+}
+
+.product-card.reverse {
+    flex-direction: row-reverse;
+}
+
+.product-info {
+    flex: 1;
+    max-width: 550px;
+}
+
+.prod-brand {
+    font-size: 16px;
+    color: #888888;
+    letter-spacing: 4px;
+    display: block;
+    margin-bottom: 10px;
+}
+
+.prod-name {
+    font-family: 'Orbitron', sans-serif;
+    font-size: 36px;
+    margin-bottom: 25px;
+    line-height: 1.2;
+}
+
+.prod-desc {
+    font-family: 'Inter', sans-serif;
+    color: #aaaaaa;
+    font-size: 17px;
+    line-height: 1.7;
+    margin-bottom: 35px;
+}
+
+.specs-list {
+    display: flex;
+    gap: 15px;
+    margin-bottom: 40px;
+}
+
+.spec-tag {
+    background-color: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    padding: 10px 18px;
+    border-radius: 4px;
+    font-size: 14px;
+    letter-spacing: 1px;
+}
+
+.spec-tag i {
+    color: #aca9c8;
+    margin-right: 8px;
+}
+
+/* CTA 버튼 (클릭하면 디테일 페이지/구매처 이동 링크 역할) */
+.cta-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 15px;
+    background-color: #00A3FF;
+    color: #ffffff;
+    text-decoration: none;
+    padding: 16px 35px;
+    font-weight: 700;
+    letter-spacing: 2px;
+    border-radius: 4px;
+    box-shadow: 0 4px 20px rgba(0, 163, 255, 0.3);
+    transition: background-color 0.3s, transform 0.2s;
+}
+
+.cta-btn:hover {
+    background-color: #0082cc;
+    transform: translateY(-3px);
+}
+
+.cta-btn.variant {
+    background-color: transparent;
+    border: 2px solid #ffffff;
+    box-shadow: none;
+}
+
+.cta-btn.variant:hover {
+    background-color: #ffffff;
+    color: #000000;
+}
+
+/* 비주얼 이미지 영역 (파츠 조립 및 시차 애니메이션용) */
+.product-visual {
+    flex: 120;
+    position: relative;
+    height: 480px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.glass-bg {
+    position: absolute;
+    width: 80%;
+    height: 70%;
+    background: linear-gradient(135deg, rgba(255,255,255,0.03) 0%, rgba(255,255,255,0.01) 100%);
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    border-radius: 16px;
+    z-index: 1;
+}
+
+.part-layer {
+    position: absolute;
+    max-width: 85%;
+    max-height: 85%;
+    object-fit: contain;
+    z-index: 2;
+}
+
+/* 오프셋 배치를 통해 입체감 연출 */
+.part-body {
+    transform: translate(0, 0);
+}
+.part-shadow {
+    transform: translate(15px, 35px) scale(0.95);
+}
+
+
+
+
+
+/* ==========================================
+    4. SEQUENTIAL REVEAL INTERACTION (스크롤 시 등장 베이스)
+   ========================================== */
+.reveal-el {
+    opacity: 0;
+    transform: translateY(40px);
+    transition: opacity 0.8s cubic-bezier(0.25, 1, 0.5, 1), 
+                transform 0.8s cubic-bezier(0.25, 1, 0.5, 1);
+}
+
+/* 일반 텍스트나 버튼 등은 기존 직선 트랜지션 그대로 유지 */
+.reveal-el.active {
+    opacity: 1;
+    transform: translateY(0) translate(0, 0) scale(1) rotate(0deg);
+}
+
+/* ==========================================
+    REAL PARABOLA REVEAL SYSTEM (간섭 및 깜빡임 원천 차단)
+   ========================================== */
+
+/* --- 1. 닛산 R34 (정방향 수평 포물선) --- */
+#prod-r34 .product-visual .part-body.reveal-el.active {
+    transition: none !important; 
+    animation: r34TrueParabola 1.2s cubic-bezier(0.25, 1, 0.5, 1) backwards;
+    animation-delay: 0.45s; 
+}
+
+#prod-r34 .product-visual .part-shadow.reveal-el.active {
+    transition: none !important;
+    animation: r34ShadowParabola 1.2s cubic-bezier(0.25, 1, 0.5, 1) backwards;
+    animation-delay: 0.50s;
+}
+
+/* --- 2. 람보르기니 쿤타치 (R34와 동일한 방향으로 궤적 일치 수정) --- */
+#prod-countach .product-visual .part-body.reveal-el.active {
+    transition: none !important;
+    /* R34와 동일하게 왼쪽에서 오른쪽으로 휘어 들어오도록 애니메이션 방향 일치 */
+    animation: countachTrueParabola 1.2s cubic-bezier(0.25, 1, 0.5, 1) backwards;
+    animation-delay: 0.45s;
+}
+
+#prod-countach .product-visual .part-shadow.reveal-el.active {
+    transition: none !important;
+    animation: countachShadowParabola 1.2s cubic-bezier(0.25, 1, 0.5, 1) backwards;
+    animation-delay: 0.50s;
+}
+
+
+/* ==========================================
+    MATHEMATICAL PARABOLA KEYFRAMES (방향 동기화 트랙)
+   ========================================== */
+
+/* --- [R34 전용 궤적] --- */
+@keyframes r34TrueParabola {
+    0% {
+        opacity: 0;
+        transform: translate(-180px, -60px) scale(0.8) rotate(0deg);
+    }
+    1% {
+        opacity: 1;
+    }
+    40% {
+        transform: translate(60px, -25px) scale(0.9) rotate(0deg);
+    }
+    100% {
+        opacity: 1;
+        transform: translate(0px, 0px) scale(1.0) rotate(0deg);
+    }
+}
+
+@keyframes r34ShadowParabola {
+    0% {
+        opacity: 0;
+        transform: translate(-165px, -25px) scale(0.75) rotate(0deg);
+    }
+    40% {
+        opacity: 0.15;
+        transform: translate(75px, 10px) scale(0.85) rotate(0deg);
+    }
+    100% {
+        opacity: 0.25;
+        transform: translate(15px, 35px) scale(0.95) rotate(0deg);
+    }
+}
+
+
+/* --- [쿤타치 전용 궤적: R34와 100% 동일 방향 매칭] --- */
+@keyframes countachTrueParabola {
+    0% {
+        opacity: 0;
+        /* R34와 완전 일치: 똑같이 좌측 상단(-180px)에서 출발 */
+        transform: translate(-180px, -60px) scale(0.8) rotate(0deg);
+    }
+    1% {
+        opacity: 1;
+    }
+    40% {
+        /* 똑같이 우측(+60px)으로 크게 탈출하며 유려한 곡선 형성 */
+        transform: translate(60px, -25px) scale(0.9) rotate(0deg);
+    }
+    100% {
+        opacity: 1;
+        transform: translate(0px, 0px) scale(1.0) rotate(0deg);
+    }
+}
+
+@keyframes countachShadowParabola {
+    0% {
+        opacity: 0;
+        transform: translate(-165px, -25px) scale(0.75) rotate(0deg);
+    }
+    40% {
+        opacity: 0.15;
+        transform: translate(75px, 10px) scale(0.85) rotate(0deg);
+    }
+    100% {
+        opacity: 0.25;
+        /* 쿤타치 레이아웃 구조에 완벽히 들어맞도록 최종 바닥 안착 오프셋 보정 */
+        transform: translate(15px, 35px) scale(0.95) rotate(0deg);
+    }
+}
+
+
+/* 미니지티 네비게이션 로고 정렬 고정 */
+.nav-logo img {
+    width: 120px;
+    height: auto;
+}
